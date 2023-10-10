@@ -1,6 +1,6 @@
 #M[0] = n
-#M[3] = v[0]
-        addi    $s2, $zero, 3       # s2 = &v[0]
+#M[4] = v[0]
+        addi    $s2, $zero, 4       # s2 = &v[0]
         lw      $s3, 0($zero)       # s3 = n
         add     $s0, $zero, $zero   # i = 0
 for1tst:slt     $t0, $s0, $s3       # t0 = (i < n)?1:0

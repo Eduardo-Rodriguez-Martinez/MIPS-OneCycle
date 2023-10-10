@@ -30,7 +30,7 @@ architecture structural of processor_testbench is
       alu_opcode: in std_logic_vector(3 downto 0);
       data_out, mem_addr: out std_logic_vector(31 downto 0);
       instr_addr: out std_logic_vector(31 downto 0);
-      clock, reset: in std_logic
+      clock, reset, bit26: in std_logic
     );
   end component datapath;
 
@@ -63,6 +63,7 @@ architecture structural of processor_testbench is
     port (
       ALUOp : in std_logic_vector(1 downto 0);
       FuncCode : in std_logic_vector(5 downto 0);
+      op : in std_logic_vector(5 downto 0);
       ALUCtl : out std_logic_vector(3 downto 0)
     );
   end component ALUControl;
@@ -99,12 +100,14 @@ begin
     mem_addr => mem_data_addr,
     instr_addr => instr_addr,
     clock => clock,
-    reset => reset
+    reset => reset,
+    bit26 => instruction(26)
   );
 
   alu_control_unit: ALUControl port map(
     ALUOp => ctrlword(1 downto 0),
     FuncCode => instruction(5 downto 0),
+    op => instruction(31 downto 26),
     ALUCtl => alu_opcode
   );
 
@@ -153,7 +156,7 @@ begin
 
   reset_p : process
   begin
-    wait for 4 ns;
+    wait for 22 ns;
     reset <= '0';
     wait;
   end process reset_p; -- reset_p
@@ -161,10 +164,37 @@ begin
   write_mem : process
   begin
     initial_addr <= x"00000000";
-    initial_data <= x"00000001"; -- 1
+    initial_data <= x"0000000a"; -- n
     wait for 2 ns;
     initial_addr <= x"00000004";
-    initial_data <= x"0000000a"; -- 1
+    initial_data <= x"000051B4"; -- v[0]
+    wait for 2 ns;
+    initial_addr <= x"00000008";
+    initial_data <= x"00008FC5"; -- v[1]
+    wait for 2 ns;
+    initial_addr <= x"0000000C";
+    initial_data <= x"00003744"; -- v[2]
+    wait for 2 ns;
+    initial_addr <= x"00000010";
+    initial_data <= x"00002825"; -- v[1]
+    wait for 2 ns;
+    initial_addr <= x"00000014";
+    initial_data <= x"0000870C"; -- v[1]
+    wait for 2 ns;
+    initial_addr <= x"00000018";
+    initial_data <= x"00004F2D"; -- v[1]
+    wait for 2 ns;
+    initial_addr <= x"0000001C";
+    initial_data <= x"00009B85"; -- v[1]
+    wait for 2 ns;
+    initial_addr <= x"00000020";
+    initial_data <= x"00007B35"; -- v[1]
+    wait for 2 ns;
+    initial_addr <= x"00000024";
+    initial_data <= x"000090DB"; -- v[1]
+    wait for 2 ns;
+    initial_addr <= x"00000028";
+    initial_data <= x"0000242A"; -- v[1]
     wait for 2 ns;
     initial_complete <= true;
     wait;

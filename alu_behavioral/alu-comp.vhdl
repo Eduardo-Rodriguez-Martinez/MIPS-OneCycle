@@ -6,12 +6,20 @@ entity alu is
     port (  A, B   : in std_logic_vector(31 downto 0);
             ALUctl : in std_logic_vector(3 downto 0);
             ALUout : out std_logic_vector(31 downto 0);
+            shamt  : in std_logic_vector(4 downto 0);
             Zero   : out std_logic );
 end alu;
 
 architecture comportamiento of alu is
+    component shift is port(
+        datain : in std_logic_vector(31 downto 0);
+        dataout : out std_logic_vector(31 downto 0);
+        shamt : in std_logic_vector(4 downto 0)
+    );
+    end component;
     signal result : std_logic_vector(31 downto 0);
     signal ResSLT : std_logic_vector(31 downto 0) := (others => '0');
+    signal ResSLL : std_logic_vector(31 downto 0) := (others => '0');
 begin
     Zero <= '0' when unsigned(result) > 0 else '1';
     with ALUctl select
@@ -21,7 +29,13 @@ begin
                   std_logic_vector(signed(A) - signed(B)) when "0110",
                   ResSLT  when "0111",
                   not( A or B ) when "1100",
+                  ResSLL when "0011",
                   (others => '0') when others;
     ResSLT(0) <= '1' when signed(A) < signed(B) else '0';
     ALUout <= result;
+    sll_unit: shift port map(
+        datain => B,
+        dataout => ResSLL,
+        shamt => shamt
+    );
 end comportamiento;

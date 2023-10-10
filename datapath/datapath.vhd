@@ -13,7 +13,7 @@ entity datapath is
     alu_opcode: in std_logic_vector(3 downto 0); -- ALUctrl
     data_out, mem_addr: out std_logic_vector(31 downto 0); -- goes to data_mem
     instr_addr: out std_logic_vector(31 downto 0); -- goes to PC
-    clock, reset: in std_logic
+    clock, reset, bit26: in std_logic
   );
 end datapath;
 
@@ -33,7 +33,7 @@ begin
 
   data_out <= rt;
   mem_addr <= alu_out;
-  instr_mux_sel <= zero_flag and ctrlword(0); --Branch
+  instr_mux_sel <= (zero_flag xor bit26) and ctrlword(0); --Branch
   rs_addr <= instruction(25 downto 21);
   rt_addr <= instruction(20 downto 16);
   rd_addr <= instruction(15 downto 11);
@@ -117,7 +117,13 @@ begin
     f => op_mux
   );
 
-  alu_unit: alu port map ( rs, op_mux, alu_opcode, alu_out, zero_flag );
+  alu_unit: alu port map ( 
+    rs,
+    op_mux,
+    alu_opcode,
+    alu_out,
+    instruction(10 downto 6),
+    zero_flag );
 
   data_mux_unit: mux2x1n generic map(
     n => 32

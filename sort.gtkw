@@ -1,0 +1,58 @@
+[*]
+[*] GTKWave Analyzer v3.3.107 (w)1999-2020 BSI
+[*] Tue Oct 10 18:31:52 2023
+[*]
+[dumpfile] "/Users/edrom/Programs/vhdl/MIPS-OneCycle/result.vcd"
+[dumpfile_mtime] "Tue Oct 10 18:11:34 2023"
+[dumpfile_size] 818629
+[savefile] "/Users/edrom/Programs/vhdl/MIPS-OneCycle/sort.gtkw"
+[timestart] 61000000
+[size] 1882 600
+[pos] -1 -1
+*-23.000000 95000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] datapath_unit.
+[treeopen] datapath_unit.register_file_unit.gen_registers(1).
+[treeopen] datapath_unit.register_file_unit.gen_registers(10).
+[treeopen] datapath_unit.register_file_unit.gen_registers(11).
+[treeopen] datapath_unit.register_file_unit.gen_registers(12).
+[treeopen] datapath_unit.register_file_unit.gen_registers(16).
+[treeopen] datapath_unit.register_file_unit.gen_registers(17).
+[treeopen] datapath_unit.register_file_unit.gen_registers(18).
+[treeopen] datapath_unit.register_file_unit.gen_registers(19).
+[treeopen] datapath_unit.register_file_unit.gen_registers(20).
+[treeopen] datapath_unit.register_file_unit.gen_registers(8).
+[treeopen] datapath_unit.register_file_unit.gen_registers(9).
+[sst_width] 193
+[signals_width] 306
+[sst_expanded] 1
+[sst_vpaned_height] 167
+@22
+initial_addr[31:0]
+initial_data[31:0]
+@28
+initial_complete
+@23
+instruction[31:0]
+@22
+instruction_addr[31:0]
+@28
+finish_flag
+ctrlword[9:0]
+@22
+alu_opcode[3:0]
++{t0} datapath_unit.register_file_unit.gen_registers(8).reg_u.q[31:0]
++{t1} datapath_unit.register_file_unit.gen_registers(9).reg_u.q[31:0]
++{t2} datapath_unit.register_file_unit.gen_registers(10).reg_u.q[31:0]
++{t3} datapath_unit.register_file_unit.gen_registers(11).reg_u.q[31:0]
++{t4} datapath_unit.register_file_unit.gen_registers(12).reg_u.q[31:0]
++{s0} datapath_unit.register_file_unit.gen_registers(16).reg_u.q[31:0]
++{s1} datapath_unit.register_file_unit.gen_registers(17).reg_u.q[31:0]
++{s2} datapath_unit.register_file_unit.gen_registers(18).reg_u.q[31:0]
++{s3} datapath_unit.register_file_unit.gen_registers(19).reg_u.q[31:0]
++{s4} datapath_unit.register_file_unit.gen_registers(20).reg_u.q[31:0]
++{at} datapath_unit.register_file_unit.gen_registers(1).reg_u.q[31:0]
+datapath_unit.alu_unit.a[31:0]
+datapath_unit.alu_unit.b[31:0]
+datapath_unit.alu_unit.aluctl[3:0]
+[pattern_trace] 1
+[pattern_trace] 0

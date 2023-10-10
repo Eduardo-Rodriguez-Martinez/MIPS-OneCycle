@@ -13,12 +13,14 @@ architecture comportamiento of ctrl_unit is
     signal ctrl_word : std_logic_vector(9 downto 0);
 begin
     with op select
-        ctrl_word <= "0100100010" when "000000",
-                     "0011110000" when "100011",
-                     "0010001000" when "101011",
-                     "0000000101" when "000100",
-                     "1000000000" when "000010",
-                     "0010100011" when "001000",
+        ctrl_word <= "0100100010" when "000000", -- R-format (add, sub, and, or, slt)
+                     "0010100011" when "001000", -- addi
+                     "0010100011" when "001010", -- slti
+                     "0011110000" when "100011", -- lw
+                     "0010001000" when "101011", -- sw
+                     "0000000101" when "000100", -- beq
+                     "0000000101" when "000101", -- bne
+                     "1000000000" when "000010", -- j
                      "ZZZZZZZZZZ" when others;
     RegDst <= ctrl_word(8); ALUSrc <= ctrl_word(7); MemToReg <= ctrl_word(6);
     RegWrite <= ctrl_word(5); MemRead <= ctrl_word(4); MemWrite <= ctrl_word(3);
