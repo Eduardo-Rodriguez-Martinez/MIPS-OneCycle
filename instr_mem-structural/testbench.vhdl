@@ -27,7 +27,7 @@ begin
 
   stimuli : process
   begin
-    for i in 0 to 7 loop
+    for i in 0 to 20 loop
       switch <= std_logic_vector(to_unsigned(4*i, switch'length));
       wait for 1 ns;
     end loop;
