@@ -7,7 +7,7 @@ end entity;
 
 architecture beh of tb_instr_mem is
 component instr_mem is
-    generic ( programa : string := "programa.bin");
+    generic ( programa : string := "loop-sll.bin");
     port ( cs      : in  std_logic;
            address : in  std_logic_vector(31 downto 0);
            dataout : out std_logic_vector(31 downto 0)

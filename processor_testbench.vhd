@@ -34,12 +34,19 @@ architecture structural of processor_testbench is
     );
   end component datapath;
 
-  component instruction_memory
-    port (
-      addr: in std_logic_vector(31 downto 0);
-      instruction: out std_logic_vector(31 downto 0)
-    ) ;
-  end component instruction_memory;
+--  component instruction_memory
+--    port (
+--      addr: in std_logic_vector(31 downto 0);
+--      instruction: out std_logic_vector(31 downto 0)
+--    ) ;
+--  end component instruction_memory;
+component instr_mem is
+  generic ( programa : string );
+  port ( cs      : in  std_logic;
+         address : in  std_logic_vector(31 downto 0);
+         dataout : out std_logic_vector(31 downto 0) 
+);
+end component instr_mem;
 
   component data_memory
     port(
@@ -124,10 +131,15 @@ begin
     ALUOp => ctrlword(1 downto 0)
   );
 
-  instruction_memory_unit: instruction_memory port map(
-    addr => instruction_addr,
-    instruction => instruction
-  );
+--  instruction_memory_unit: instruction_memory port map(
+--    addr => instruction_addr,
+--    instruction => instruction
+--  );
+instruction_memory_unit: instr_mem generic map ("loop-sll.bin") port map(
+  address => instruction_addr,
+  dataout => instruction,
+  cs => '1'
+);
 
   data_memory_unit: data_memory port map(
     clk => clock,
@@ -156,7 +168,7 @@ begin
 
   reset_p : process
   begin
-    wait for 22 ns;
+    wait for 8 ns;
     reset <= '0';
     wait;
   end process reset_p; -- reset_p
@@ -170,33 +182,8 @@ begin
     initial_data <= x"000051B4"; -- v[0]
     wait for 2 ns;
     initial_addr <= x"00000008";
-    initial_data <= x"00008FC5"; -- v[1]
-    wait for 2 ns;
-    initial_addr <= x"0000000C";
-    initial_data <= x"00003744"; -- v[2]
-    wait for 2 ns;
-    initial_addr <= x"00000010";
-    initial_data <= x"00002825"; -- v[1]
-    wait for 2 ns;
-    initial_addr <= x"00000014";
-    initial_data <= x"0000870C"; -- v[1]
-    wait for 2 ns;
-    initial_addr <= x"00000018";
-    initial_data <= x"00004F2D"; -- v[1]
-    wait for 2 ns;
-    initial_addr <= x"0000001C";
-    initial_data <= x"00009B85"; -- v[1]
-    wait for 2 ns;
-    initial_addr <= x"00000020";
-    initial_data <= x"00007B35"; -- v[1]
-    wait for 2 ns;
-    initial_addr <= x"00000024";
-    initial_data <= x"000090DB"; -- v[1]
-    wait for 2 ns;
-    initial_addr <= x"00000028";
-    initial_data <= x"0000242A"; -- v[1]
-    wait for 2 ns;
-    initial_complete <= true;
+    initial_data <= x"FFFFFFFF"; -- v[0]
+    wait for 2 ns;    initial_complete <= true;
     wait;
   end process ; -- write_mem
 
