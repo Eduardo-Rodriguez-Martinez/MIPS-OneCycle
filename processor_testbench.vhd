@@ -34,12 +34,13 @@ architecture structural of processor_testbench is
     );
   end component datapath;
 
-  component instruction_memory
-    port (
-      addr: in std_logic_vector(31 downto 0);
-      instruction: out std_logic_vector(31 downto 0)
-    ) ;
-  end component instruction_memory;
+  component instr_mem is
+  generic ( programa : string );
+  port ( cs      : in  std_logic;
+         address : in  std_logic_vector(31 downto 0);
+         dataout : out std_logic_vector(31 downto 0) 
+);
+end component instr_mem;
 
   component data_memory
     port(
@@ -121,10 +122,11 @@ begin
     ALUOp => ctrlword(1 downto 0)
   );
 
-  instruction_memory_unit: instruction_memory port map(
-    addr => instruction_addr,
-    instruction => instruction
-  );
+  instruction_memory_unit: instr_mem generic map ("loop-sll.bin") port map(
+  address => instruction_addr,
+  dataout => instruction,
+  cs => '1'
+);
 
   data_memory_unit: data_memory port map(
     clk => clock,
