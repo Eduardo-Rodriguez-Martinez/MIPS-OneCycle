@@ -155,7 +155,7 @@ begin
 
   reset_p : process
   begin
-    wait for 4 ns;
+    wait for 8 ns;
     reset <= '0';
     wait;
   end process reset_p; -- reset_p
@@ -166,9 +166,11 @@ begin
     initial_data <= x"00000001"; -- 1
     wait for 2 ns;
     initial_addr <= x"00000004";
-    initial_data <= x"0000000a"; -- 1
+    initial_data <= x"0000000a"; -- 10
     wait for 2 ns;
-    initial_complete <= true;
+    initial_addr <= x"00000008";
+    initial_data <= x"FFFFFFFF"; -- -1
+    wait for 2 ns;    initial_complete <= true;
     wait;
   end process ; -- write_mem
 
