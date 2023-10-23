@@ -21,7 +21,7 @@ architecture comportamiento of alu is
      end component;
 begin
     Zero <= '0' when unsigned(result) > 0 else '1';
-    S0: shift port map (A, reShft ,shamt);
+    S0: shift port map (B, reShft ,shamt);
     with ALUctl select
         result <= A and B when "0000",
                   A or  B when "0001",
