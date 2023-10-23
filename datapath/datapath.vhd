@@ -22,7 +22,7 @@ architecture structural of datapath is
   signal data_mux, imm32, rs, rt, alu_out, op_mux: std_logic_vector(31 downto 0);
   signal jump_mux_a, jump_mux_b, branch_instr_addr: std_logic_vector(31 downto 0);
   signal pc_plus_4, sll2: std_logic_vector(31 downto 0);
-  signal rs_addr, rt_addr, rd_addr, wr_addr, shamT: std_logic_vector(4 downto 0);
+  signal rs_addr, rt_addr, rd_addr, wr_addr, shamt: std_logic_vector(4 downto 0);
   signal imm16: std_logic_vector(15 downto 0);
   signal func: std_logic_vector(5 downto 0);
   signal zero_flag, instr_mux_sel: std_logic;
